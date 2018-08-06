@@ -35,16 +35,27 @@ const Vegetable = db.define('vegetable', {
   },
   planted_on: {
     type: Sequelize.DATE,
-    allowNull: false
+    // allowNull: false
   }
 })
 
 Plot.belongsTo(Gardener);
 Gardener.hasOne(Plot);
 
-Vegetable.belongsToMany(Plot, {through: 'vegetable_plot'});
-Plot.belongsToMany(Vegetable, {through: 'vegetable_plot'});
+Vegetable.belongsToMany(Plot, {
+  through: 'vegetable_plot'
+});
+Plot.belongsToMany(Vegetable, {
+  through: 'vegetable_plot'
+});
 
-Gardener.belongsTo(Vegetable, {as: 'favorite_veg'})
+Gardener.belongsTo(Vegetable, {
+  as: 'favorite_veg'
+})
 
-module.exports = db
+module.exports = {
+  db,
+  Vegetable,
+  Gardener,
+  Plot
+}
